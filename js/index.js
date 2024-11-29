@@ -1,6 +1,8 @@
 import { preloadImages } from './utils.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from '@studio-freight/lenis';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const lenis = new Lenis({
@@ -13,12 +15,14 @@ const lenis = new Lenis({
     touchMultiplier: 2,
 });
 
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
+// Connect GSAP ScrollTrigger and Lenis
+lenis.on('scroll', ScrollTrigger.update);
 
-requestAnimationFrame(raf);
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+
+gsap.ticker.lagSmoothing(0);
 
 const grid1 = document.querySelector('.grid--1');
 const grid2 = document.querySelector('.grid--2');

@@ -10,18 +10,12 @@
     "convert-images": "node scripts/convert-images.js",
     "update-refs": "node scripts/update-image-refs.js"
   },
-  "devDependencies": {
-    "sharp": "^0.33.0",
-    "vite": "^5.4.11"
-  },
   "dependencies": {
-    "@studio-freight/lenis": "^1.0.42",
+    "@studio-freight/lenis": "^1.0.34",
     "gsap": "^3.12.5",
-    "imagesloaded": "^5.0.0"
+    "sharp": "^0.33.2"
   },
-  "description": "An explorations on assembling (grid) layouts on scroll.",
-  "main": "vite.config.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "vite": "^5.0.8"
+  }
 }
