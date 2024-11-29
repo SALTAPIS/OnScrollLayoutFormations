@@ -10,100 +10,36 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="/css/base.css" />
 		<script>document.documentElement.className="js";</script>
-		<style>
-			.version-nav {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				background: rgba(0, 0, 0, 0.8);
-				z-index: 1000;
-				padding: 1rem;
-				display: flex;
-				justify-content: center;
-				gap: 2rem;
-			}
-			.version-nav a {
-				color: white;
-				text-decoration: none;
-				padding: 0.5rem 1rem;
-				border: 1px solid white;
-				border-radius: 4px;
-				transition: all 0.3s ease;
-			}
-			.version-nav a:hover {
-				background: white;
-				color: black;
-			}
-			.version-nav a.current {
-				background: white;
-				color: black;
-			}
-			main {
-				padding-top: 4rem;
-			}
-			.grid {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: 2vw;
-				padding: 2vw;
-				max-width: 100%;
-			}
-			.grid__item {
-				position: relative;
-				aspect-ratio: 1;
-				margin: 0;
-				overflow: hidden;
-			}
-			.grid__item-img {
-				width: 100%;
-				height: 100%;
-				background-size: cover;
-				background-position: center;
-				opacity: 0;
-				transition: opacity 0.3s;
-			}
-			.grid__item-img.grid__item-img--large {
-				width: 200%;
-				height: 200%;
-				transform: translate(-25%, -25%);
-			}
-			.grid__item-img.in-view {
-				opacity: 1;
-			}
-			@media screen and (min-width: 1600px) {
-				.grid {
-					gap: 3vw;
-					padding: 3vw;
-				}
-			}
-		</style>
 	</head>
 	<body class="loading">
-		<nav class="version-nav">
-			<a href="/">Original</a>
-			<a href="/v2/" class="current">Version 2</a>
-		</nav>
 		<main>
+			<header class="frame">
+				<h2 class="frame__title">Salon Formations</h2>
+				<nav class="nav__links">
+					<a href="/original/" class="nav__link">Original</a>
+					<a href="/v2/" class="nav__link">V2</a>
+					<a href="/v3/" class="nav__link">V3</a>
+				</nav>
+			</header>
 			<div class="grid grid--1">
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/1.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/2.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/converted/3.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/4.webp)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork1.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork2.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/artworks/artwork3.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork4.jpeg)"></div></div>
 			</div>
 			<div class="grid grid--2">
-				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/converted/5.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/6.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/7.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/converted/8.webp)"></div></div>
+				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/artworks/artwork5.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork6.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork7.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/artworks/artwork8.jpeg)"></div></div>
 			</div>
 			<div class="grid grid--3">
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/9.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/converted/10.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/11.webp)"></div></div>
-				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/converted/12.webp)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork9.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img grid__item-img--large" style="background-image:url(/img/artworks/artwork10.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork11.jpeg)"></div></div>
+				<div class="grid__item"><div class="grid__item-img" style="background-image:url(/img/artworks/artwork12.jpeg)"></div></div>
 			</div>
 		</main>
-		<script type="module" src="/js/index.js"></script>
+		<script type="module" src="/js/v2.js"></script>
 	</body>
 </html>

@@ -7,8 +7,15 @@ import imagesLoaded from 'imagesloaded';
  * @returns {Promise} - Resolves when all specified images are loaded.
  */
 const preloadImages = (selector = 'img') => {
+  console.log('Preloading images with selector:', selector);
+  const elements = document.querySelectorAll(selector);
+  console.log('Found elements:', elements.length);
+  
   return new Promise((resolve) => {
-      imagesLoaded(document.querySelectorAll(selector), {background: true}, resolve);
+      imagesLoaded(elements, {background: true}, (instance) => {
+          console.log('Images loaded:', instance.images.length);
+          resolve();
+      });
   });
 };
 

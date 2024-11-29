@@ -24,14 +24,14 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 
-const grid1 = document.querySelector('.grid--1');
-const grid2 = document.querySelector('.grid--2');
-const grid3 = document.querySelector('.grid--3');
+const grid1 = document.querySelector('[data-grid-first]');
+const grid2 = document.querySelector('[data-grid-second]');
+const grid3 = document.querySelector('[data-grid-third]');
 
 const grids = [grid1, grid2, grid3];
 
 const animateGrid = (grid, delay = 0) => {
-    const gridItems = grid.querySelectorAll('.grid__item-img');
+    const gridItems = grid.querySelectorAll('.grid__img');
     
     return gsap.timeline({
         scrollTrigger: {
@@ -66,13 +66,11 @@ preloadImages('.grid__item-img').then(() => {
 
 // Handle hover effects
 grids.forEach(grid => {
-    const items = grid.querySelectorAll('.grid__item');
+    const items = grid.querySelectorAll('.grid__img');
     
     items.forEach(item => {
-        const image = item.querySelector('.grid__item-img');
-        
         item.addEventListener('mouseenter', () => {
-            gsap.to(image, {
+            gsap.to(item, {
                 scale: 1.1,
                 duration: 0.5,
                 ease: 'power2.out'
@@ -80,7 +78,7 @@ grids.forEach(grid => {
         });
         
         item.addEventListener('mouseleave', () => {
-            gsap.to(image, {
+            gsap.to(item, {
                 scale: 1,
                 duration: 0.5,
                 ease: 'power2.out'
