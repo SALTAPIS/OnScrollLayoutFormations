@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "convert-images": "node scripts/convert-images.js",
+    "update-refs": "node scripts/update-image-refs.js"
   },
   "devDependencies": {
+    "sharp": "^0.33.0",
     "vite": "^5.4.11"
   },
   "dependencies": {
