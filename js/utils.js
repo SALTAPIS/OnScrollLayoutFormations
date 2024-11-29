@@ -1,3 +1,5 @@
+import imagesLoaded from 'imagesloaded';
+
 /**
  * Preloads images specified by the CSS selector.
  * @function
@@ -6,7 +8,6 @@
  */
 const preloadImages = (selector = 'img') => {
   return new Promise((resolve) => {
-      // The imagesLoaded library is used to ensure all images (including backgrounds) are fully loaded.
       imagesLoaded(document.querySelectorAll(selector), {background: true}, resolve);
   });
 };
