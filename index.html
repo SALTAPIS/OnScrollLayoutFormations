@@ -12,8 +12,45 @@
 		<link rel="stylesheet" href="https://use.typekit.net/tas3jji.css">
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
 		<script>document.documentElement.className="js";</script>
+		<style>
+			.version-nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				z-index: 1000;
+				padding: 1rem;
+				display: flex;
+				justify-content: center;
+				gap: 2rem;
+			}
+			.version-nav a {
+				color: white;
+				text-decoration: none;
+				padding: 0.5rem 1rem;
+				border: 1px solid white;
+				border-radius: 4px;
+				transition: all 0.3s ease;
+			}
+			.version-nav a:hover {
+				background: white;
+				color: black;
+			}
+			.version-nav a.current {
+				background: white;
+				color: black;
+			}
+			main {
+				padding-top: 4rem;
+			}
+		</style>
 	</head>
-	<body class="loading">
+	<body>
+		<nav class="version-nav">
+			<a href="/original" class="current">Original</a>
+			<a href="/v2">Version 2</a>
+		</nav>
 		<main>
 			<header class="frame">
 				<h2 class="frame__title">Lennox Montgomery</h2>
