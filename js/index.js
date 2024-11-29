@@ -1,4 +1,21 @@
+// Import only the utils that we need
 import { preloadImages } from './utils.js';
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Initialize smooth scrolling
+const lenis = new Lenis();
+
+// Update ScrollTrigger when lenis scrolls
+lenis.on('scroll', ScrollTrigger.update);
+
+// Connect GSAP ScrollTrigger and Lenis
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+
+gsap.ticker.lagSmoothing(0);
 
 // Function to animate the header (frame)
 const animateFrame = () => {
@@ -48,7 +65,6 @@ const animateFirstGrid = () => {
     stagger: 0.07,
     y: () => gsap.utils.random(window.innerHeight, window.innerHeight * 1.8)
   })
-  // text content
   .from(grid.parentNode.querySelector('.content__title'), {
     duration: 1.2,
     ease: 'power4',
@@ -87,7 +103,6 @@ const animateSecondGrid = () => {
       return pos < middleIndex ? distanceFromCenter * 3 : distanceFromCenter * -3;
     },
   })
-  // text content
   .from(grid.querySelectorAll('.grid__item'), {
     stagger: {
       amount: 0.3,
@@ -128,23 +143,13 @@ const animateThirdGrid = () => {
     stagger: 0.06,
     filter: pos => pos < gridImages.length-1 ? 'brightness(20%)' : 'brightness(100%)'
   }, 0)
-  // text content
   .from(grid.querySelectorAll('.grid__item'), {
     xPercent: pos => pos%2 ? 100 : -100,
     autoAlpha: 0
   }, 0.06*gridImages.length);
 };
 
-/**
- * Calculates the initial translation and 3D rotation of an element, moving and rotating it further away from the center of the screen.
- * The rotation and Z-axis translation are proportional to the distance from the center, with elements near the center rotating less and moving less in Z.
- * 
- * @param {Element} element - The DOM element to calculate the translation and rotation for
- * @param {Number} offsetDistance - The distance by which the element will be moved away from the center (default: 250px)
- * @param {Number} maxRotation - The maximum rotation in degrees for farthest elements (default: 300 degrees)
- * @param {Number} maxZTranslation - The maximum Z-axis translation in pixels for farthest elements (default: 2000px)
- * @returns {Object} The x, y, z translation and rotateX, rotateY values as {x, y, z, rotateX, rotateY}
- */
+// Helper function for 3D transforms
 const calculateInitialTransform = (element, offsetDistance = 250, maxRotation = 300, maxZTranslation = 2000) => {
   const viewportCenter = { width: window.innerWidth / 2, height: window.innerHeight / 2 };
   const elementCenter = { 
@@ -152,30 +157,17 @@ const calculateInitialTransform = (element, offsetDistance = 250, maxRotation = 
     y: element.offsetTop + element.offsetHeight / 2 
   };
 
-  // Calculate the angle between the center of the element and the center of the viewport
   const angle = Math.atan2(Math.abs(viewportCenter.height - elementCenter.y), Math.abs(viewportCenter.width - elementCenter.x));
-
-  // Calculate the x and y translation based on the angle and distance
   const translateX = Math.abs(Math.cos(angle) * offsetDistance);
   const translateY = Math.abs(Math.sin(angle) * offsetDistance);
-
-  // Calculate the maximum possible distance from the center (diagonal of the viewport)
   const maxDistance = Math.sqrt(Math.pow(viewportCenter.width, 2) + Math.pow(viewportCenter.height, 2));
-
-  // Calculate the current distance from the center
   const currentDistance = Math.sqrt(Math.pow(viewportCenter.width - elementCenter.x, 2) + Math.pow(viewportCenter.height - elementCenter.y, 2));
-
-  // Scale rotation and Z-translation based on distance from the center (closer elements rotate/translate less, farther ones rotate/translate more)
   const distanceFactor = currentDistance / maxDistance;
 
-  // Calculate the rotation values based on the position relative to the center
   const rotationX = ((elementCenter.y < viewportCenter.height ? -1 : 1) * (translateY / offsetDistance) * maxRotation * distanceFactor);
   const rotationY = ((elementCenter.x < viewportCenter.width ? 1 : -1) * (translateX / offsetDistance) * maxRotation * distanceFactor);
-
-  // Calculate the Z-axis translation (depth) based on the distance from the center
   const translateZ = maxZTranslation * distanceFactor;
 
-  // Determine direction based on position relative to the viewport center
   return {
     x: elementCenter.x < viewportCenter.width ? -translateX : translateX,
     y: elementCenter.y < viewportCenter.height ? -translateY : translateY,
@@ -202,18 +194,16 @@ const animateFourthGrid = () => {
       scrub: 0.2,
     }
   })
-  .set(grid, {perspective: 1000}) // Add perspective for 3D effect
+  .set(grid, {perspective: 1000})
   .fromTo(gridImages, {
-    // Define the starting position based on the pre-calculated translation, rotation, and Z-axis translation values
     x: (_, el) => calculateInitialTransform(el).x,
     y: (_, el) => calculateInitialTransform(el).y,
-    z: (_, el) => calculateInitialTransform(el).z, // Z-axis translation
+    z: (_, el) => calculateInitialTransform(el).z,
     rotateX: (_, el) => calculateInitialTransform(el).rotateX*.5,
     rotateY: (_, el) => calculateInitialTransform(el).rotateY,
     autoAlpha: 0,
     scale: 0.7,
   }, {
-    // Animate the images to their original position and remove transform
     x: 0,
     y: 0,
     z: 0,
@@ -229,14 +219,14 @@ const animateFourthGrid = () => {
   });
 };
 
-// Function to animate the fourth (v2) grid
+// Function to animate the fourth grid (v2)
 const animateFourthV2Grid = () => {
   const grid = document.querySelector('[data-grid-fourth-v2]');
   const gridImages = grid.querySelectorAll('.grid__img');
 
   gsap.timeline({
     defaults: {
-      ease: 'power4',
+      ease: 'power4'
     },
     scrollTrigger: {
       trigger: grid,
@@ -246,12 +236,11 @@ const animateFourthV2Grid = () => {
       scrub: 0.2,
     }
   })
-  .set(grid, {perspective: 1200}) // Add perspective for 3D effect
+  .set(grid, {perspective: 1200})
   .fromTo(gridImages, {
-    // Define the starting position based on the pre-calculated translation, rotation, and Z-axis translation values
     x: (_, el) => calculateInitialTransform(el, 900).x,
     y: (_, el) => calculateInitialTransform(el, 600).y,
-    z: (_, el) => calculateInitialTransform(el, _, _, -3000).z, // Z-axis translation
+    z: (_, el) => calculateInitialTransform(el, _, _, -3000).z,
     rotateX: (_, el) => calculateInitialTransform(el, 250, -160, -3000).rotateX,
     rotateY: (_, el) => calculateInitialTransform(el, 250, -160, -3000).rotateY,
     autoAlpha: 0,
@@ -269,10 +258,10 @@ const animateFourthV2Grid = () => {
       from: 'center',
       grid: [4, 9]
     }
-  })
+  });
 };
 
-// Function to animate the fourth grid
+// Function to animate the fifth grid
 const animateFifthGrid = () => {
   const grid = document.querySelector('[data-grid-fifth]');
   const gridImages = grid.querySelectorAll('.grid__img');
@@ -355,17 +344,14 @@ const animateSeventhGrid = () => {
   })
   .fromTo(gridImages, {
     yPercent: -102,
-    //filter: 'brightness(300%) contrast(480%)'
   }, {
     stagger: 0.08,
     yPercent: 0,
-    //filter: 'brightness(100%) contrast(100%)'
   })
   .from([...gridImages].map(img => img.querySelector('.grid__img-inner')), {
     stagger: 0.08,
     yPercent: 102,
   }, 0)
-  // text content
   .from(grid.querySelectorAll('.grid__item'), {
     yPercent: 20,
     stagger: gridImages.length/2*0.08,
@@ -456,9 +442,10 @@ const init = () => {
   animateEighthGrid();
   animateNinthGrid();
 };
+
 // Preload images and initialize animations
 preloadImages('.grid__img').then(() => {
-  document.body.classList.remove('loading'); // Remove the loading class from the body
+  document.body.classList.remove('loading');
   init();
   window.scrollTo(0, 0);
 });
